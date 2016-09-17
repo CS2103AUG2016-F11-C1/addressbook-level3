@@ -71,7 +71,7 @@
         <junit fork="yes" printsummary="withOutAndErr" failureproperty="test.failed">
             <formatter type="xml"/>
             <batchtest todir="${junit.output.dir}">
-                <fileset dir="test/">
+                <fileset dir="test/java">
                     <include name="**/*Test*" />
                 </fileset>
             </batchtest>
