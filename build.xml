@@ -68,6 +68,7 @@
     </target>
 	<target name="test" depends="build">
         <junit>
+			<classpath refid="addressbook-level3.classpath"/>
             <formatter type="plain" usefile="false" />
             <formatter type="plain" />
             <batchtest>
