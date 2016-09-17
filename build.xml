@@ -66,14 +66,18 @@
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
-	<target name="test" depends="build">
-        <junit>
-			<classpath refid="addressbook-level3.classpath"/>
-            <formatter type="plain" usefile="false" />
-            <formatter type="plain" />
-            <batchtest>
-                <fileset dir="${bin}" includes="**/Test*.class" />
+    <target name="test" depends="build">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr" failureproperty="test.failed">
+            <formatter type="xml"/>
+            <batchtest todir="${junit.output.dir}">
+                <fileset dir="test/">
+                    <include name="**/*Test*" />
+                </fileset>
             </batchtest>
+            <jvmarg line="-ea"/>
+            <classpath refid="addressbook-level3.classpath"/>
         </junit>
+        <fail message="Test failure detected, check test results." if="test.failed" />
     </target>
 </project>
