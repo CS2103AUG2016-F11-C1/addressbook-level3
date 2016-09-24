@@ -26,6 +26,10 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final String SPACE = " ";
+    public static int GET_INDEX = 0;
+    public static int GET_NAME = 1;
+    public static int ARRAY_OFFSET = 1;
 
     /**
      * Signals that the user input could not be parsed.
@@ -62,6 +66,9 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
+            case EditNameCommand.COMMAND_WORD:
+            	return prepareEdit(arguments);
+            	
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -88,8 +95,39 @@ public class Parser {
                 return new HelpCommand();
         }
     }
+    
+    private String trimSpace(String arguments){
+    	return arguments.trim();
+    }
+    
+    private String[] splitBySpace(String arguments) throws ParseException{
+    	if(trimSpace(arguments).split(SPACE).length <= 1){
+    		throw new ParseException(arguments);
+    	}else{
+    		return trimSpace(arguments).split(SPACE);
+    	}
+    }
 
-    /**
+    /** 
+     * Parses arguments in the context of the edit person name command.
+     *
+     * @param argumentss full command arguments string
+     * @return the prepared command
+     */
+    
+    private Command prepareEdit(String arguments) {
+		try{
+			final int chosenIndex = parseArgsAsDisplayedIndex(splitBySpace(arguments)[GET_INDEX]);
+			final String givenNewName = splitBySpace(arguments)[GET_NAME];
+			return new EditNameCommand(chosenIndex, givenNewName);
+		}
+		catch (ParseException | NumberFormatException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					EditNameCommand.MESSAGE_USAGE));
+		}
+	}
+
+	/**
      * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
