@@ -26,6 +26,10 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final String SPACE = " ";
+    public static int GET_INDEX = 0;
+    public static int GET_NAME = 1;
+    public static int ARRAY_OFFSET = 1;
 
     /**
      * Signals that the user input could not be parsed.
@@ -65,6 +69,9 @@ public class Parser {
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
+            case EditAddressCommand.COMMAND_WORD:
+            	return prepareEditAddress(arguments);
+                
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
@@ -88,8 +95,47 @@ public class Parser {
                 return new HelpCommand();
         }
     }
+    
+    private String trimSpace(String arguments){
+    	return arguments.trim();
+    }
+    
+    private String[] splitBySpace(String arguments) throws ParseException{
+    	if(trimSpace(arguments).split(SPACE).length <= 1){
+    		throw new ParseException(arguments);
+    	}else{
+    		return trimSpace(arguments).split(SPACE);
+    	}
+    }
+    
+    private String getAddress(String[] args) {
+    	String address = "";
+    	for(int i = 1; i < args.length; i ++){
+    		address = address + args[i];
+    	}
+    	return address;
+    }
 
-    /**
+    /** 
+     * Parses arguments in the context of the edit person address command.
+     *
+     * @param argumentss full command arguments string
+     * @return the prepared command
+     */
+    
+    private Command prepareEditAddress(String arguments) {
+		try{
+			final int chosenIndex = parseArgsAsDisplayedIndex(splitBySpace(arguments)[GET_INDEX]);
+			final String givenNewAddress = getAddress(splitBySpace(arguments));
+			return new EditAddressCommand(chosenIndex, givenNewAddress);
+		}
+		catch (ParseException | NumberFormatException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					EditAddressCommand.MESSAGE_USAGE));
+		}
+	}
+
+	/**
      * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
