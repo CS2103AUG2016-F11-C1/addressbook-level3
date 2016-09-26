@@ -66,6 +66,32 @@ public class ParserTest {
     }
 
     /**
+     * Test edit address command 
+     *
+     */
+    @Test
+    public void editAddressCommand_noArgs(){
+    	final String [] inputs = {"editAddress", "editAddress " };
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAddressCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+    @Test
+    public void editAddressCommand_invalidArgs(){
+    	final String [] inputs = {"editAddress 1", "editAddress 2" };
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAddressCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+//    @Test
+//    public void editAddressCommand_argParsedCorrectly() {
+//        final int testIndex = 1;
+//        final String input = "editAddress " + testIndex;
+//        final EditAddressCommand result = parseAndAssertCommandType(input, EditAddressCommand.class);
+//        assertEquals(result.MESSAGE_SUCCESS, );
+//    }
+    
+    /**
      * Test ingle index argument commands
      */
     
