@@ -70,6 +70,9 @@ public class Parser {
 
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
+                
+            case FindTagCommand.COMMAND_WORD:
+            	return prepareFindTag(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
@@ -228,5 +231,9 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    
+    private Command prepareFindTag(String argument) {
+		return new FindTagCommand(argument);
+	}
 
 }
