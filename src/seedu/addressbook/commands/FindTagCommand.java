@@ -14,4 +14,21 @@ public class FindTagCommand extends Command {
 		return null;
 	}
 
+	private List<ReadOnlyPerson> getPersonsWithTag(String keyword) {
+        final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
+		Tag searchedTag;
+		try {
+			searchedTag = new Tag(keyword);
+	        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+	            if (person.getTags().contains(searchedTag)) {
+	                matchedPersons.add(person);
+	            }
+	        }
+		} catch (IllegalValueException e) {
+			// TODO: Better error message.
+			e.printStackTrace();
+		}
+        return matchedPersons;
+    }
+
 }
