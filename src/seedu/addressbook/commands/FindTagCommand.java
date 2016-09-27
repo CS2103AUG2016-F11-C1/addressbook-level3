@@ -12,6 +12,7 @@ public class FindTagCommand extends Command {
 	
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
             + "Lists all persons in the address book with the searched tag.\n\t"
+            + "Parameters: KEYWORD\n\t"
             + "Example: " + COMMAND_WORD + " owemoney";
 
 	private String keyword;
