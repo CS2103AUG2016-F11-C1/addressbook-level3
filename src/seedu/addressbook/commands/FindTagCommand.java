@@ -16,6 +16,10 @@ public class FindTagCommand extends Command {
             + "Example: " + COMMAND_WORD + " owemoney";
 
 	private String keyword;
+	
+	public String getKeyword() {
+		return keyword; 
+	}
 
 	public FindTagCommand(String argument) {
 		this.keyword = argument;
