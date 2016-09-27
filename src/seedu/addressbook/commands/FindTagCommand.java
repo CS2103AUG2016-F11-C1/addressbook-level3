@@ -22,7 +22,7 @@ public class FindTagCommand extends Command {
 	}
 
 	public FindTagCommand(String argument) {
-		this.keyword = argument;
+		this.keyword = argument.trim();
 	}
 
 	@Override
