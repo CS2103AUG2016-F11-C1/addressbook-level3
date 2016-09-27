@@ -1,5 +1,11 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.data.tag.Tag;
+import java.util.*;
+
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+
 public class FindTagCommand extends Command {
 	
 	public static final String COMMAND_WORD = "findtag";
@@ -8,12 +14,18 @@ public class FindTagCommand extends Command {
             + "Lists all persons in the address book with the searched tag.\n\t"
             + "Example: " + COMMAND_WORD + " owemoney";
 
-	@Override
-	public CommandResult execute() {
-		// TODO Auto-generated method stub
-		return null;
+	private String keyword;
+
+	public FindTagCommand(String argument) {
+		this.keyword = argument;
 	}
 
+	@Override
+	public CommandResult execute() {
+		final List<ReadOnlyPerson> personsFound = getPersonsWithTag(keyword);
+        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+	}
+	
 	private List<ReadOnlyPerson> getPersonsWithTag(String keyword) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
 		Tag searchedTag;
