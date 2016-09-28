@@ -87,7 +87,5 @@ public class Person implements ReadOnlyPerson {
 
 	public void setName(String newName) throws IllegalValueException {
 		this.name = new Name(newName);
-		
 	}
-
 }
