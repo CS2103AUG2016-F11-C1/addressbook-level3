@@ -2,6 +2,7 @@ package seedu.addressbook.data.tag;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
+import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
 
@@ -145,6 +146,15 @@ public class UniqueTagList implements Iterable<Tag> {
     public void setTags(UniqueTagList replacement) {
         this.internalList.clear();
         this.internalList.addAll(replacement.internalList);
+    }
+    
+    public Tag get(String tagName) throws TagNotFoundException, IllegalValueException {
+    	int index = internalList.indexOf(new Tag(tagName));
+
+    	if (index < 0)
+    		throw new TagNotFoundException();
+    	
+    	return internalList.get(index);
     }
 
     @Override

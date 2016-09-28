@@ -89,12 +89,20 @@ public class AddressBook {
      * 
      * @param targetIndex
      * @param tagName
-     * @throws PersonNotFoundException
-     * @throws DuplicateDataException
-     * @throws IllegalValueException
+     * @throws IllegalValueException 
+     * @throws DuplicateTagException 
+     * @throws PersonNotFoundException 
      */
-	public void addTagToPerson(int targetIndex, Tag newTag) throws PersonNotFoundException, IllegalValueException {
-		allPersons.addTagToPerson(targetIndex, newTag);
+	public void addTagToPerson(ReadOnlyPerson target, String tagName) throws DuplicateTagException, IllegalValueException, PersonNotFoundException {
+		Person targetPerson = (Person) target;
+		
+		try {
+			allTags.add(new Tag(tagName));
+			Tag newTag = allTags.get(tagName);
+			allPersons.addTagToPerson(targetPerson, newTag);
+		} catch (TagNotFoundException e) {
+			return;
+		}
 	}
 
     /**
@@ -104,6 +112,10 @@ public class AddressBook {
      */
     public void addTag(Tag toAdd) throws DuplicateTagException {
         allTags.add(toAdd);
+    }
+    
+    public Tag getTag(String tagName) throws TagNotFoundException, IllegalValueException {
+    	return allTags.get(tagName);
     }
 
     /**

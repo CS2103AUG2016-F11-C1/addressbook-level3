@@ -3,8 +3,8 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
-import seedu.addressbook.data.tag.Tag;
 
 public class AddTagCommand extends Command {
 
@@ -29,16 +29,17 @@ public class AddTagCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		try {
-			Tag newTag = new Tag(tagName);
-			addressBook.addTag(newTag);
-			addressBook.addTagToPerson(getTargetIndex(), newTag);
-		} catch (PersonNotFoundException e) {
-			return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+			final ReadOnlyPerson targetPerson = getTargetPerson();
+			addressBook.addTagToPerson(targetPerson, tagName);
 		} catch (DuplicateDataException e) {
 			return new CommandResult(String.format(MESSAGE_TAG_EXISTS, tagName));
 		} catch (IllegalValueException e) {
 			return new CommandResult(MESSAGE_TAG_INVALID);
-		}
+		} catch (IndexOutOfBoundsException ie) {
+            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } catch (PersonNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+        }
 		
 		return new CommandResult(String.format(MESSAGE_SUCCESS, tagName));
 	}

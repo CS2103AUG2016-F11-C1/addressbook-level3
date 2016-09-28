@@ -4,6 +4,8 @@ import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.tag.UniqueTagList.DuplicateTagException;
+import seedu.addressbook.data.tag.UniqueTagList.TagNotFoundException;
 
 import java.util.*;
 
@@ -97,6 +99,23 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Adds a tag to a person.
+     * 
+     * @param targetPerson	Person to add tag to
+     * @param newTag		Tag to add
+     * @throws DuplicateTagException 
+     * @throws PersonNotFoundException 
+     */
+	public void addTagToPerson(Person targetPerson, Tag newTag) throws DuplicateTagException, PersonNotFoundException {
+		int index = internalList.indexOf(targetPerson);
+		
+		if (index < 0)
+			throw new PersonNotFoundException();
+		
+		targetPerson.addTag(newTag);
+	}
+
+    /**
      * Removes the equivalent person from the list.
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
@@ -114,22 +133,6 @@ public class UniquePersonList implements Iterable<Person> {
     public void clear() {
         internalList.clear();
     }
-
-    /**
-     * Adds tag to person in the list
-     * 
-     * @param targetIndex	Index of the person in the list
-     * @param tagName		New tag to be added to the person
-     * @throws IllegalValueException 
-     * @throws PersonNotFoundException 
-     */
-	public void addTagToPerson(int targetIndex, Tag newTag) throws IllegalValueException, PersonNotFoundException {
-		if (targetIndex > internalList.size() || targetIndex <= 0) {
-			throw new PersonNotFoundException();
-		} else {
-			internalList.get(targetIndex).addTag(newTag);
-		}
-	}
 
     @Override
     public Iterator<Person> iterator() {
