@@ -138,6 +138,8 @@ public class Parser {
 		catch (ParseException | NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
 					EditAddressCommand.MESSAGE_USAGE));
+		}
+    }
 
     private Command prepareEdit(String arguments) {
         try{
