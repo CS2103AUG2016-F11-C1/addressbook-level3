@@ -162,7 +162,6 @@ public class AddressBook {
     }
 
 	public void addTagToPerson(int targetIndex, String tagName) throws PersonNotFoundException, DuplicateDataException, IllegalValueException {
-		// TODO Auto-generated method stub
-		
+		allPersons.addTagToPerson(targetIndex, tagName);
 	}
 }

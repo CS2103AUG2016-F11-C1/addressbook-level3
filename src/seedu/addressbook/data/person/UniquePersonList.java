@@ -2,6 +2,7 @@ package seedu.addressbook.data.person;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
+import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
 
@@ -112,6 +113,16 @@ public class UniquePersonList implements Iterable<Person> {
     public void clear() {
         internalList.clear();
     }
+
+    /**
+     * Adds tag to person in the list
+     * 
+     * @param targetIndex	Index of the person in the list
+     * @param tagName		New tag to be added to the person
+     */
+	public void addTagToPerson(int targetIndex, String tagName) {
+		// TODO: Auto-generated method stub
+	}
 
     @Override
     public Iterator<Person> iterator() {
