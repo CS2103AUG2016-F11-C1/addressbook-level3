@@ -64,6 +64,33 @@ public class ParserTest {
         final String input = "exit";
         parseAndAssertCommandType(input, ExitCommand.class);
     }
+    
+    /**
+     * Test edit name command 
+     *
+     */
+    @Test
+    public void editNameCommand_noArgs(){
+    	final String [] inputs = {"editName", "editName " };
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNameCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+    @Test
+    public void editNameCommand_invalidArgs(){
+    	final String [] inputs = {"editName 1", "editName 2" };
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNameCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+    @Test
+    public void editNameCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String testAddress = " NEW NAME";
+        final String input = "editName " + testIndex + testAddress;
+        final EditNameCommand result = parseAndAssertCommandType(input, EditNameCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
 
     /**
      * Test edit address command 
@@ -200,6 +227,24 @@ public class ParserTest {
         final FindCommand result =
                 parseAndAssertCommandType(input, FindCommand.class);
         assertEquals(keySet, result.getKeywords());
+    }
+    
+    /**
+     * Test find tag command
+     */
+    @Test
+    public void findTagCommand_validArgs_parsedCorrectly() {
+    	final String keyword = "owemoney";
+    	final String input = "findtag " + keyword;
+    	final FindTagCommand result = parseAndAssertCommandType(input, FindTagCommand.class);
+    	assertEquals(keyword, result.getKeyword());
+    }
+    
+    @Test
+    public void findTagCommand_invalidArgs() {
+    	final String input = "findtag";
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, input);
     }
 
     /**

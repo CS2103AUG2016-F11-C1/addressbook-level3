@@ -139,7 +139,15 @@ public class UniquePersonList implements Iterable<Person> {
 			throw new IllegalValueException(Integer.toString(index));
 		}
 		internalList.get(index - OFFSET).setAddress(newAddress);
-		
+    }
+    
+	public void editName(int index, String newName) throws 
+	PersonNotFoundException, IllegalValueException {
+		final int OFFSET = 1;
+		if(internalList.size() < index || index <= 0) {
+			throw new IllegalValueException(Integer.toString(index));
+		}
+		internalList.get(index - OFFSET).setName(newName);
 	}
 
 }

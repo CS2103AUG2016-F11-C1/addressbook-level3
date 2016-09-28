@@ -66,6 +66,9 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
+            case EditNameCommand.COMMAND_WORD:
+                return prepareEdit(arguments);
+            	
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -77,6 +80,9 @@ public class Parser {
 
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
+                
+            case FindTagCommand.COMMAND_WORD:
+            	return prepareFindTag(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
@@ -132,6 +138,16 @@ public class Parser {
 		catch (ParseException | NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
 					EditAddressCommand.MESSAGE_USAGE));
+
+    private Command prepareEdit(String arguments) {
+        try{
+		    final int chosenIndex = parseArgsAsDisplayedIndex(splitBySpace(arguments)[GET_INDEX]);
+			final String givenNewName = splitBySpace(arguments)[GET_NAME];
+			return new EditNameCommand(chosenIndex, givenNewName);
+		}
+		catch (ParseException | NumberFormatException e) {
+		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+		            EditNameCommand.MESSAGE_USAGE));
 		}
 	}
 
@@ -141,7 +157,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -274,5 +290,18 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    
+    /**
+     * Parses argument as a tag to be searched.
+     * 
+     * @param argument full command args string
+     * @return the prepared command
+     */
+    private Command prepareFindTag(String argument) {
+    	if (argument.length() == 0)
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    				FindTagCommand.MESSAGE_USAGE));
+		return new FindTagCommand(argument);
+	}
 
 }

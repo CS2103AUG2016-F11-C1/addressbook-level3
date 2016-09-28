@@ -170,4 +170,15 @@ public class AddressBook {
     PersonNotFoundException, IllegalValueException {
     	allPersons.editAddress(index , newAddress);
     }
+
+    /**
+     * Edits the name of a person in the address book based on index
+     * 
+     * @throws IllegalValueExecption if given index is invalid
+     * @thows PersonNotFoundException if Person with the given specified name does not exist
+     */
+    public void editPersonName(int index, String newName) throws 
+    PersonNotFoundException, IllegalValueException {
+    	allPersons.editName(index , newName);
+    }
 }
