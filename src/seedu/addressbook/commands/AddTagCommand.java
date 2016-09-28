@@ -4,6 +4,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.tag.Tag;
 
 public class AddTagCommand extends Command {
 
@@ -28,7 +29,9 @@ public class AddTagCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		try {
-			addressBook.addTagToPerson(getTargetIndex(), tagName);
+			Tag newTag = new Tag(tagName);
+			addressBook.addTag(newTag);
+			addressBook.addTagToPerson(getTargetIndex(), newTag);
 		} catch (PersonNotFoundException e) {
 			return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
 		} catch (DuplicateDataException e) {

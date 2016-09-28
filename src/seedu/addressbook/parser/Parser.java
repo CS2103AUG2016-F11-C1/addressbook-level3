@@ -15,6 +15,8 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 public class Parser {
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    
+    public static final Pattern ADD_TAG_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+) (?<tagName>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -61,6 +63,9 @@ public class Parser {
 
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
+                
+            case AddTagCommand.COMMAND_WORD:
+            	return prepareAddTag(arguments);
 
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
@@ -140,6 +145,33 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Parses arguments in the context of the add tag command.
+     * 
+     * @param args	Full command args string
+     * @return		The prepared Command
+     */
+    private Command prepareAddTag(String args) {
+    	final Matcher matcher = ADD_TAG_ARGS_FORMAT.matcher(args.trim());
+    	
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        }
+        
+    	try {
+    		final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
+    		final String tagName = matcher.group("tagName");
+    		return new AddTagCommand(targetIndex, tagName);
+    	} catch (IllegalValueException e) {
+    		return new IncorrectCommand(e.getMessage());
+    	} catch (NumberFormatException e) {
+    		return new IncorrectCommand(e.getMessage());
+		} catch (ParseException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
     }
 
 

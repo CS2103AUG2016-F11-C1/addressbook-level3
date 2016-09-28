@@ -123,9 +123,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws IllegalValueException 
      * @throws PersonNotFoundException 
      */
-	public void addTagToPerson(int targetIndex, String tagName) throws IllegalValueException, PersonNotFoundException {
-		Tag newTag = new Tag(tagName);
-		
+	public void addTagToPerson(int targetIndex, Tag newTag) throws IllegalValueException, PersonNotFoundException {
 		if (targetIndex > internalList.size() || targetIndex <= 0) {
 			throw new PersonNotFoundException();
 		} else {

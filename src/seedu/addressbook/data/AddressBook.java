@@ -85,6 +85,19 @@ public class AddressBook {
     }
 
     /**
+     * Adds a tag to a person.
+     * 
+     * @param targetIndex
+     * @param tagName
+     * @throws PersonNotFoundException
+     * @throws DuplicateDataException
+     * @throws IllegalValueException
+     */
+	public void addTagToPerson(int targetIndex, Tag newTag) throws PersonNotFoundException, IllegalValueException {
+		allPersons.addTagToPerson(targetIndex, newTag);
+	}
+
+    /**
      * Adds a tag to the list of tags present in the address book.
      *
      * @throws DuplicateTagException if an equivalent tag already exists.
@@ -160,8 +173,4 @@ public class AddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(allPersons, allTags);
     }
-
-	public void addTagToPerson(int targetIndex, String tagName) throws PersonNotFoundException, DuplicateDataException, IllegalValueException {
-		allPersons.addTagToPerson(targetIndex, tagName);
-	}
 }
