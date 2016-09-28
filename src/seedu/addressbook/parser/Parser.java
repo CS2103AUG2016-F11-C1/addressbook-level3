@@ -77,6 +77,9 @@ public class Parser {
 
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
+                
+            case FindTagCommand.COMMAND_WORD:
+            	return prepareFindTag(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
@@ -266,5 +269,18 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    
+    /**
+     * Parses argument as a tag to be searched.
+     * 
+     * @param argument full command args string
+     * @return the prepared command
+     */
+    private Command prepareFindTag(String argument) {
+    	if (argument.length() == 0)
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    				FindTagCommand.MESSAGE_USAGE));
+		return new FindTagCommand(argument);
+	}
 
 }

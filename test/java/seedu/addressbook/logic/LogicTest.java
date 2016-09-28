@@ -456,6 +456,40 @@ public class LogicTest {
                                 true,
                                 expectedList);
     }
+    
+    @Test
+    public void execute_findtag_matches() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person adam = helper.adam();
+
+        List<Person> persons = helper.generatePersonList(adam);
+        AddressBook expectedAB = helper.generateAddressBook(persons);
+        List<Person> expectedList = helper.generatePersonList(adam);
+        helper.addToAddressBook(addressBook, persons);
+
+        assertCommandBehavior("findtag tag1",
+                                Command.getMessageForPersonListShownSummary(expectedList),
+                                expectedAB,
+                                true,
+                                expectedList);
+    }
+    
+    @Test
+    public void execute_findtag_no_matches() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person adam = helper.adam();
+
+        List<Person> persons = helper.generatePersonList(adam);
+        AddressBook expectedAB = helper.generateAddressBook(persons);
+        List<Person> expectedList = new ArrayList<Person>();
+        helper.addToAddressBook(addressBook, persons);
+
+        assertCommandBehavior("findtag tag10",
+                                Command.getMessageForPersonListShownSummary(expectedList),
+                                expectedAB,
+                                true,
+                                expectedList);
+    }
 
     /**
      * A utility class to generate test data.

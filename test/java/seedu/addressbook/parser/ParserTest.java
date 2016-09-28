@@ -201,6 +201,24 @@ public class ParserTest {
                 parseAndAssertCommandType(input, FindCommand.class);
         assertEquals(keySet, result.getKeywords());
     }
+    
+    /**
+     * Test find tag command
+     */
+    @Test
+    public void findTagCommand_validArgs_parsedCorrectly() {
+    	final String keyword = "owemoney";
+    	final String input = "findtag " + keyword;
+    	final FindTagCommand result = parseAndAssertCommandType(input, FindTagCommand.class);
+    	assertEquals(keyword, result.getKeyword());
+    }
+    
+    @Test
+    public void findTagCommand_invalidArgs() {
+    	final String input = "findtag";
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, input);
+    }
 
     /**
      * Test add person command
