@@ -3,6 +3,7 @@ package seedu.addressbook.data.person;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.tag.Tag;
 
 import java.util.*;
 
@@ -119,9 +120,17 @@ public class UniquePersonList implements Iterable<Person> {
      * 
      * @param targetIndex	Index of the person in the list
      * @param tagName		New tag to be added to the person
+     * @throws IllegalValueException 
+     * @throws PersonNotFoundException 
      */
-	public void addTagToPerson(int targetIndex, String tagName) {
-		// TODO: Auto-generated method stub
+	public void addTagToPerson(int targetIndex, String tagName) throws IllegalValueException, PersonNotFoundException {
+		Tag newTag = new Tag(tagName);
+		
+		if (targetIndex > internalList.size() || targetIndex <= 0) {
+			throw new PersonNotFoundException();
+		} else {
+			internalList.get(targetIndex).addTag(newTag);
+		}
 	}
 
     @Override

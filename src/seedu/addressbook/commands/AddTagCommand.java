@@ -35,7 +35,7 @@ public class AddTagCommand extends Command {
 			return new CommandResult(String.format(MESSAGE_TAG_EXISTS, tagName));
 		} catch (IllegalValueException e) {
 			return new CommandResult(MESSAGE_TAG_INVALID);
-		} 
+		}
 		
 		return new CommandResult(String.format(MESSAGE_SUCCESS, tagName));
 	}
