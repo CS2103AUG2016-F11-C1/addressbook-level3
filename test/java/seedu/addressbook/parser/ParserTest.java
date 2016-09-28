@@ -185,6 +185,13 @@ public class ParserTest {
     	final FindTagCommand result = parseAndAssertCommandType(input, FindTagCommand.class);
     	assertEquals(keyword, result.getKeyword());
     }
+    
+    @Test
+    public void findTagCommand_invalidArgs() {
+    	final String input = "findtag";
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTagCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, input);
+    }
 
     /**
      * Test add person command
