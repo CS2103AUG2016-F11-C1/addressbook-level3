@@ -14,6 +14,8 @@ public class FindTagCommand extends Command {
             + "Lists all persons in the address book with the searched tag.\n\t"
             + "Parameters: KEYWORD\n\t"
             + "Example: " + COMMAND_WORD + " owemoney";
+    
+    public static final String MESSAGE_INVALID_TAG = "Error: Invalid tag name.";
 
     private String keyword;
     
@@ -27,23 +29,22 @@ public class FindTagCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyPerson> personsFound = getPersonsWithTag(keyword);
-        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+    	try {
+    		final List<ReadOnlyPerson> personsFound = getPersonsWithTag(keyword);
+    		return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+    	} catch (IllegalValueException e) {
+    		return new CommandResult(MESSAGE_INVALID_TAG);
+    	}
     }
     
-    private List<ReadOnlyPerson> getPersonsWithTag(String keyword) {
+    private List<ReadOnlyPerson> getPersonsWithTag(String keyword) throws IllegalValueException {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         Tag searchedTag;
-        try {
-            searchedTag = new Tag(keyword);
-            for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-                if (person.getTags().contains(searchedTag)) {
-                    matchedPersons.add(person);
-                }
+        searchedTag = new Tag(keyword);
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            if (person.getTags().contains(searchedTag)) {
+                matchedPersons.add(person);
             }
-        } catch (IllegalValueException e) {
-            // TODO: Better error message.
-            e.printStackTrace();
         }
         return matchedPersons;
     }
