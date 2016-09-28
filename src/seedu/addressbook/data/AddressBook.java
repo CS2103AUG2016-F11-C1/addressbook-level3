@@ -1,6 +1,5 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.person.UniquePersonList.*;
@@ -185,4 +184,16 @@ public class AddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(allPersons, allTags);
     }
+
+    /**
+     * Edits the name of a person in the address book based on index
+     * 
+     * @throws IllegalValueExecption if given index is invalid
+     * @thows PersonNotFoundException if Person with the given specified name does not exist
+     */
+    public void editPersonName(int index, String newName) throws 
+    PersonNotFoundException, IllegalValueException {
+    	allPersons.editName(index , newName);
+    }
+
 }
