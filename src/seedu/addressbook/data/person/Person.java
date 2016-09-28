@@ -1,5 +1,6 @@
 package seedu.addressbook.data.person;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -84,4 +85,7 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+	public void setName(String newName) throws IllegalValueException {
+		this.name = new Name(newName);
+	}
 }

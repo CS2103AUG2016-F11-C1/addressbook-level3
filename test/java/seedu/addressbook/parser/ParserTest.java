@@ -64,6 +64,33 @@ public class ParserTest {
         final String input = "exit";
         parseAndAssertCommandType(input, ExitCommand.class);
     }
+    
+    /**
+     * Test edit name command 
+     *
+     */
+    @Test
+    public void editNameCommand_noArgs(){
+    	final String [] inputs = {"editName", "editName " };
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNameCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+    @Test
+    public void editNameCommand_invalidArgs(){
+    	final String [] inputs = {"editName 1", "editName 2" };
+    	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNameCommand.MESSAGE_USAGE);
+    	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+    @Test
+    public void editNameCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String testAddress = " NEW NAME";
+        final String input = "editName " + testIndex + testAddress;
+        final EditNameCommand result = parseAndAssertCommandType(input, EditNameCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
 
     /**
      * Test ingle index argument commands
