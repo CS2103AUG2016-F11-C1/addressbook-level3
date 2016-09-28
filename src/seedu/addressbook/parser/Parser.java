@@ -67,7 +67,7 @@ public class Parser {
                 return prepareAdd(arguments);
 
             case EditNameCommand.COMMAND_WORD:
-            	return prepareEdit(arguments);
+                return prepareEdit(arguments);
             	
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
@@ -96,15 +96,15 @@ public class Parser {
         }
     }
     
-    private String trimSpace(String arguments){
-    	return arguments.trim();
+    private String trimSpace(String arguments) {
+        return arguments.trim();
     }
     
-    private String[] splitBySpace(String arguments) throws ParseException{
+    private String[] splitBySpace(String arguments) throws ParseException {
     	if(trimSpace(arguments).split(SPACE).length <= 1){
-    		throw new ParseException(arguments);
+    	    throw new ParseException(arguments);
     	}else{
-    		return trimSpace(arguments).split(SPACE);
+    	    return trimSpace(arguments).split(SPACE);
     	}
     }
 
@@ -116,14 +116,14 @@ public class Parser {
      */
     
     private Command prepareEdit(String arguments) {
-		try{
-			final int chosenIndex = parseArgsAsDisplayedIndex(splitBySpace(arguments)[GET_INDEX]);
+        try{
+		    final int chosenIndex = parseArgsAsDisplayedIndex(splitBySpace(arguments)[GET_INDEX]);
 			final String givenNewName = splitBySpace(arguments)[GET_NAME];
 			return new EditNameCommand(chosenIndex, givenNewName);
 		}
 		catch (ParseException | NumberFormatException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-					EditNameCommand.MESSAGE_USAGE));
+		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+		            EditNameCommand.MESSAGE_USAGE));
 		}
 	}
 
@@ -133,7 +133,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
