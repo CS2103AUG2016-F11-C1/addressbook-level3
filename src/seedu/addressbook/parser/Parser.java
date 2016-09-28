@@ -101,7 +101,7 @@ public class Parser {
     }
     
     private String[] splitBySpace(String arguments) throws ParseException {
-    	if(trimSpace(arguments).split(SPACE).length <= 1){
+    	if (trimSpace(arguments).split(SPACE).length <= 1){
     	    throw new ParseException(arguments);
     	}else{
     	    return trimSpace(arguments).split(SPACE);
