@@ -83,13 +83,14 @@ public class ParserTest {
     	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
     
-//    @Test
-//    public void editAddressCommand_argParsedCorrectly() {
-//        final int testIndex = 1;
-//        final String input = "editAddress " + testIndex;
-//        final EditAddressCommand result = parseAndAssertCommandType(input, EditAddressCommand.class);
-//        assertEquals(result.MESSAGE_SUCCESS, );
-//    }
+    @Test
+    public void editAddressCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String testAddress = " NEW ADDRESS";
+        final String input = "editAddress " + testIndex + testAddress;
+        final EditAddressCommand result = parseAndAssertCommandType(input, EditAddressCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
     
     /**
      * Test ingle index argument commands
