@@ -34,5 +34,4 @@ public class EditAddressCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }
