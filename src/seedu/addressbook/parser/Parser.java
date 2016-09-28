@@ -165,13 +165,9 @@ public class Parser {
     		final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
     		final String tagName = matcher.group("tagName");
     		return new AddTagCommand(targetIndex, tagName);
-    	} catch (IllegalValueException e) {
-    		return new IncorrectCommand(e.getMessage());
-    	} catch (NumberFormatException e) {
-    		return new IncorrectCommand(e.getMessage());
-		} catch (ParseException e) {
-			return new IncorrectCommand(e.getMessage());
-		}
+    	} catch (IllegalValueException | NumberFormatException | ParseException e) {
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+    	}
     }
 
 
