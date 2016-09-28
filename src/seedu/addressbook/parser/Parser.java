@@ -233,6 +233,9 @@ public class Parser {
 
     
     private Command prepareFindTag(String argument) {
+    	if (argument.length() == 0)
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    				FindTagCommand.MESSAGE_USAGE));
 		return new FindTagCommand(argument);
 	}
 
