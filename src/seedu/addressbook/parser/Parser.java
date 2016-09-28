@@ -232,6 +232,12 @@ public class Parser {
     }
 
     
+    /**
+     * Parses argument as a tag to be searched.
+     * 
+     * @param argument full command args string
+     * @return the prepared command
+     */
     private Command prepareFindTag(String argument) {
     	if (argument.length() == 0)
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
