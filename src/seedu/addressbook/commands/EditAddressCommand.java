@@ -7,7 +7,7 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
 public class EditAddressCommand extends Command {
 
-    public static final String COMMAND_WORD = "editAddress";
+    public static final String COMMAND_WORD = "editaddress";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Edits the address of a person in the address book. \n\t"
              + "Parameters: INDEX , ADDRESS \n\t"

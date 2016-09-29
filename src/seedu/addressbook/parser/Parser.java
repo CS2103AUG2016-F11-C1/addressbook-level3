@@ -121,8 +121,14 @@ public class Parser {
     
     private String getAddress(String[] args) {
     	String address = "";
+    	System.out.println(Arrays.toString(args));
     	for(int i = 1; i < args.length; i ++){
-    		address = address + args[i];
+    	    if (i == args.length - 1) {
+    	        address = address + args[i];
+    	    } 
+    	    else {
+    	        address = address + args[i] + " ";
+    	    }
     	}
     	return address;
     }
