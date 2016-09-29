@@ -71,14 +71,14 @@ public class ParserTest {
      */
     @Test
     public void editNameCommand_noArgs(){
-    	final String [] inputs = {"editName", "editName " };
+    	final String [] inputs = {"editname", "editname " };
     	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNameCommand.MESSAGE_USAGE);
     	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
     
     @Test
     public void editNameCommand_invalidArgs(){
-    	final String [] inputs = {"editName 1", "editName 2" };
+    	final String [] inputs = {"editname 1", "editname 2" };
     	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNameCommand.MESSAGE_USAGE);
     	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
@@ -87,7 +87,7 @@ public class ParserTest {
     public void editNameCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
         final String testAddress = " NEW NAME";
-        final String input = "editName " + testIndex + testAddress;
+        final String input = "editname " + testIndex + testAddress;
         final EditNameCommand result = parseAndAssertCommandType(input, EditNameCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
@@ -98,14 +98,14 @@ public class ParserTest {
      */
     @Test
     public void editAddressCommand_noArgs(){
-    	final String [] inputs = {"editAddress", "editAddress " };
+    	final String [] inputs = {"editaddress", "editaddress " };
     	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAddressCommand.MESSAGE_USAGE);
     	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
     
     @Test
     public void editAddressCommand_invalidArgs(){
-    	final String [] inputs = {"editAddress 1", "editAddress 2" };
+    	final String [] inputs = {"editaddress 1", "editaddress 2" };
     	final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAddressCommand.MESSAGE_USAGE);
     	parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
@@ -114,7 +114,7 @@ public class ParserTest {
     public void editAddressCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
         final String testAddress = " NEW ADDRESS";
-        final String input = "editAddress " + testIndex + testAddress;
+        final String input = "editaddress " + testIndex + testAddress;
         final EditAddressCommand result = parseAndAssertCommandType(input, EditAddressCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
