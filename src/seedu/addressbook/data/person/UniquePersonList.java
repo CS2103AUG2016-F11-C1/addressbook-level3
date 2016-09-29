@@ -5,7 +5,6 @@ import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.tag.UniqueTagList.DuplicateTagException;
-import seedu.addressbook.data.tag.UniqueTagList.TagNotFoundException;
 
 import java.util.*;
 
@@ -151,5 +150,15 @@ public class UniquePersonList implements Iterable<Person> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+	public void editName(int index, String newName) throws 
+	PersonNotFoundException, IllegalValueException {
+		final int OFFSET = 1;
+		if(internalList.size() < index || index <= 0) {
+			throw new IllegalValueException(Integer.toString(index));
+		}
+		internalList.get(index - OFFSET).setName(newName);
+		
+	}
 
 }
