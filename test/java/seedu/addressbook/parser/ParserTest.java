@@ -93,7 +93,7 @@ public class ParserTest {
     }
 
     /**
-     * Test ingle index argument commands
+     * Test single index argument commands
      */
     
     @Test
@@ -315,6 +315,31 @@ public class ParserTest {
             addCommand += " t/" + tag.tagName;
         }
         return addCommand;
+    }
+    
+    /**
+     * Test add tag command
+     */
+    
+    @Test
+    public void addTagCommand_invalidArgs() {
+        final String[] inputs = {
+                "addtag",
+                "addtag ",
+                "addtag 1",
+                "addtag wrong args",
+                "addtag 1 too many args",
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    
+    @Test
+    public void deleteCommand_validArgs_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String input = "addtag " + testIndex + " taggy";
+        final AddTagCommand result = parseAndAssertCommandType(input, AddTagCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
     }
 
     /**
